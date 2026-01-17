@@ -1,0 +1,54 @@
+% Title slide frame
+\begin{frame}[plain]
+\OswaldFont
+\begin{tikzpicture}[remember picture,overlay]
+% Background image
+\node[above right,inner sep=0pt] at (current page.south west)
+{
+    \includegraphics[width=\paperwidth]{img/blueCS_background.png}
+};
+    
+% Title & Subtitle
+
+\node[above=0.5cm,color=yellowCS,align=center] (title) at (current page.center)
+{
+    \Huge \MyTitle
+};
+
+% Author 
+\node[color=white,below=0.1cm] (author) at (title.south){\MyAuthor};
+% Facultate
+\node[color=yellowCS,below=0cm] (date) at (author.south){\large \Facultate};
+% Universitate
+\node[color=white,below=0.5cm] (date) at (author.south){\large \Universitate};
+% Logo CS
+\node[below right=3.5cm and 0.5cm] at (current page.north west)
+{
+    \includegraphics[width=2cm]{img/CS_white_logo.png}
+};
+\draw[yellowCS, ultra thick] (3,-0.65) -- (8,-0.65);
+% Logo UBB
+\node[below right =3.5cm and 10cm] at (current page.north west)
+{
+    \includegraphics[width=2cm]{img/Sigla_UBB_claudiopolitana_alb.png}
+};
+% Team Section
+\node[
+    anchor=south east,       % Pin the bottom-right corner of this block...
+    at=(current page.south east), % ...to the bottom-right corner of the page
+    xshift=-0.5cm,           % Move it a little to the left
+    yshift=0.5cm,            % Move it a little up
+    align=right,             % Right-align the text names
+    color=white              % Make text white
+] 
+{
+    % Optional: Use \OswaldFont here if you defined it, otherwise regular bold is fine
+    \textbf{\large Team} \\[0.2cm] 
+    Stan Ioan-Victor \\
+    Hojda Sebastian-George\\
+    Copaciu Timotei-Andrei
+};
+\end{tikzpicture}
+
+    
+\end{frame}
