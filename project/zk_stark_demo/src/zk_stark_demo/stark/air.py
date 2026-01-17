@@ -13,6 +13,15 @@ class AIR(ABC):
     def trace_width(self) -> int:
         pass
         
+    def constraint_degree(self) -> int:
+        """
+        Returns the algebraic degree of the transition constraints.
+        Default is 1 (Linear).
+        If constraints involve multiplication of trace variables (e.g. x^2), return 2, etc.
+        """
+        return 1
+
+        
     @abstractmethod
     def trace_length(self) -> int:
         pass

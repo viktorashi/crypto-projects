@@ -59,4 +59,4 @@ If valid, it will output: `✅ Proof Verified! Computation is valid.`
 
 - `src/zk_stark_demo/algebra`: Math primitives (Field, Poly, Merkle).
 - `src/zk_stark_demo/stark`: Protocol mechanics (Trace, LDE, FRI, Prover/Verifier).
-- `src/zk_stark_demo/examples`: Concrete AIR implementations (Fibonacci).
+- `src/zk_stark_demo/examples`: Concrete AIR implementations (Fibonacci, Cubic).

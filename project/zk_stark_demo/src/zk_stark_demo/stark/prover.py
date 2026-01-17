@@ -44,7 +44,7 @@ class StarkProver:
         composition_evals: List[FieldElement] = []
         domain_lde = lde.domain_lde
         
-        g_trace = FieldElement.generator_of_order(self.air.trace_length())
+        g_trace = FieldElement.generator_of_order(self.trace.length)
         g_inv = g_trace.inv() # g^{N-1}
         
         lde_length = lde.lde_length
@@ -59,7 +59,7 @@ class StarkProver:
             constraints_val = self.air.evaluate_transition_constraints(current_state, next_state)
             
             # Z_trans(x) = (x^N - 1) / (x - g^{N-1})
-            numerator_z = x.pow(self.air.trace_length()) - FieldElement(1)
+            numerator_z = x.pow(self.trace.length) - FieldElement(1)
             denominator_z = x - g_inv
             z_trans_x = numerator_z / denominator_z
             
@@ -87,8 +87,26 @@ class StarkProver:
             composition_evals.append(q_x)
             
         # 5. Run FRI on this Composition Polynomial
-        subset_domain = domain_lde[:self.air.trace_length()]
-        subset_vals = composition_evals[:self.air.trace_length()]
+        # 5. Interpolate Q(x)
+        # The degree of Q(x) is approximately (constraint_degree - 1) * trace_length.
+        # For linear constraints (deg=1), Q(x) is roughly trace_length (due to Z(x) division).
+        # For deg=2, Q(x) is ~ 2N - N = N.
+        # Generally we need enough points to uniquely determine Q(x).
+        
+        c_degree = self.air.constraint_degree()
+        # Q(x) = C(T) / Z(x). Deg(C) = deg_c * (N-1). Deg(Z) = N-1.
+        # Deg(Q) = (deg_c - 1) * (N-1).
+        # We need at least Deg(Q) + 1 points.
+        # If deg_c = 1, we need 0+1 = 1 point? (Constant). 
+        # But effectively we use trace_length to be safe and cover Z(x) quirks.
+        
+        target_degree = max(self.trace.length, (c_degree - 1) * self.trace.length)
+        # Ensure we don't exceed LDE domain
+        if target_degree > lde_length:
+            raise ValueError(f"Constraint degree {c_degree} too high for blowup factor")
+            
+        subset_domain = domain_lde[:target_degree]
+        subset_vals = composition_evals[:target_degree]
         q_poly = Polynomial.lagrange_interpolate(subset_domain, subset_vals)
         
         # 6. FRI
