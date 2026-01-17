@@ -499,6 +499,61 @@
     \textit{*Plus a "Low Degree Test" (FRI) to ensure $T(x)$ isn't just random noise fitting the points.}
 \end{frame}
 
+% SLIDE 13: Why "Low Degree" = Truth?
+\begin{frame}{The Core Intuition: Low Degree = Valid}
+    \small
+    Why does checking the "degree" of a polynomial prove the code ran correctly?
+
+    \vspace{0.2cm}
+
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{The Honest Case (Steel Rod)}
+            \begin{itemize}
+                \item Valid computation steps follow a strict mathematical structure.
+                \item The resulting polynomial $Q(x)$ is efficient and "smooth" (Low Degree).
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{0.5\textwidth}
+            \textbf{The Cheating Case (Floppy String)}
+            \begin{itemize}
+                \item Faking a step breaks the algebraic pattern.
+                \item To force the curve through the fake point, the polynomial must "wiggle" violently.
+                \item This explosion in complexity creates a \textbf{High Degree} polynomial.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+
+    \vspace{0.3cm}
+
+    \begin{block}{The Logic Chain}
+        \centering
+        \textbf{Valid Math} $\xrightarrow{\text{creates}}$ \textbf{Clean Division} $\xrightarrow{\text{creates}}$ \textbf{Low Degree Poly}
+    \end{block}
+\end{frame}
+
+% SLIDE 14: Defending the Witness (Zero Knowledge)
+\begin{frame}{But... Can the Verifier Steal the Secret?}
+    \small
+    What prevents a malicious Verifier from asking for every point on the curve to reverse-engineer the secret?
+
+    \vspace{0.2cm}
+
+    \begin{enumerate}
+        \item \textbf{Out-of-Domain Sampling:}
+        The Verifier checks points in the "Extension" area (random noise), not the execution trace indices.
+        
+        \item \textbf{Blinding (The Mask):}
+        Before starting, the Prover adds random "garbage" data to the polynomial.
+        \[ T_{final}(x) = T_{trace}(x) + \text{RandomNoise}(x) \]
+        \textit{Even if the Verifier learns a point, they see (Secret + Random), which reveals nothing.}
+        
+        \item \textbf{Non-Interactive (Fiat-Shamir):}
+        The "Verifier" is replaced by a cryptographic Hash Function. No human gets to choose "sensitive" questions.
+    \end{enumerate}
+\end{frame}
+
 % SLIDE 11: BULLETPROOFS
 \begin{frame}{Bulletproofs: The Middle Ground}
 
