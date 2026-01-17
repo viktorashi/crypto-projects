@@ -12,15 +12,18 @@ from zk_stark_demo.stark.lde import LowDegreeExtension
 
 class TestStarkMechanics(unittest.TestCase):
     
-    def test_trace_padding(self):
+    def test_trace_length_validation(self):
         # Create a trace with 3 rows, width 1
         data = [[FieldElement(1)], [FieldElement(2)], [FieldElement(3)]]
-        trace = Trace(data, 1)
         
-        # Should paddle to 4
+        # Should raise ValueError because 3 is not power of 2
+        with self.assertRaises(ValueError):
+             Trace(data, 1)
+             
+        # Power of 2 should work
+        data_pow2 = [[FieldElement(1)], [FieldElement(2)], [FieldElement(3)], [FieldElement(0)]]
+        trace = Trace(data_pow2, 1)
         self.assertEqual(trace.length, 4)
-        # Check padding
-        self.assertEqual(trace.data[3][0], FieldElement(0))
 
     def test_lde_interpolation(self):
         """
