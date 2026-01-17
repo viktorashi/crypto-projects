@@ -1,4 +1,3 @@
-
 from .field import FieldElement
 
 class Polynomial:
