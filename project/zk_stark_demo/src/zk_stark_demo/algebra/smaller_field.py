@@ -3,7 +3,7 @@ class SmallField:
     Veryy small field, for representative purposes
     """
 
-    P = 12
+    P = 7
 
     def __init__(self, val):
         if isinstance(val, SmallField):
@@ -91,8 +91,8 @@ class SmallField:
     @classmethod
     def generator(cls):
         # Find a generator for the multiplicative group?
-        # For P = 12,
-        return cls(5)
+        # For P = 7, 3 is a generator. (2 only generates {1, 2, 4})
+        return cls(3)
 
     @classmethod
     def generator_of_order(cls, order):

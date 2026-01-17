@@ -36,6 +36,7 @@ class TestGeneratorVisual(unittest.TestCase):
         assert (
             len(seen) == SmallField.P - 1
         ), f"The element is not a generator! This element only generates a subgroup of size {len(seen)}"
+
         print("\nSUCCESS: The element is a generator! It hits every non-zero value.")
         print("=" * 50 + "\n")
 
