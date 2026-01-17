@@ -43,6 +43,7 @@
 *.pdfsync
 *.rubbercache
 rubber.cache
+__pycache__/
 
 ## Build tool directories for auxiliary files
 # latexrun
