@@ -23,7 +23,7 @@ class FriProver:
     def __init__(self, polynomial: Polynomial, domain: List[FieldElement]) -> None:
         """
         polynomial: The polynomial to prove (usually composition polynomial).
-        domain: The evaluation domain (must be power of 2 size).
+        domain: The evaluation domain (must be power of 2 sized).
         """
         self.polynomial: Polynomial = polynomial
         self.domain: List[FieldElement] = domain
@@ -49,29 +49,29 @@ class FriProver:
         # Folding
         while len(current_values) > 1: # Until we have a constant (degree 0)
             # 1. Get random beta from Verifier
-            beta = interaction_channel.receive_random_field_element()
+            beta: FieldElement = interaction_channel.receive_random_field_element()
             
             # 2. Fold
             next_values: List[FieldElement] = []
             next_domain: List[FieldElement] = []
             
-            length = len(current_values)
+            length: int = len(current_values)
             assert length % 2 == 0
-            half_len = length // 2
+            half_len: int = length // 2
             
-            inv_2 = FieldElement(2).inv()
+            inv_2: FieldElement = FieldElement(2).inv()
             
             for i in range(half_len):
-                x = current_domain[i]
-                x_inv = x.inv()
+                x: FieldElement = current_domain[i]
+                x_inv: FieldElement = x.inv()
                 
-                v_x = current_values[i]
-                v_minus_x = current_values[i + half_len]
+                v_x: FieldElement = current_values[i]
+                v_minus_x: FieldElement = current_values[i + half_len]
                 
-                even = (v_x + v_minus_x) * inv_2
-                odd  = (v_x - v_minus_x) * inv_2 * x_inv
+                even: FieldElement = (v_x + v_minus_x) * inv_2
+                odd: FieldElement  = (v_x - v_minus_x) * inv_2 * x_inv
                 
-                next_val = even + beta * odd
+                next_val: FieldElement = even + beta * odd
                 next_values.append(next_val)
                 next_domain.append(x * x)
             
@@ -83,10 +83,10 @@ class FriProver:
             interaction_channel.send(layer.root)
             commitments.append(layer.root)
             
-            current_values = next_values
-            current_domain = next_domain
+            current_values: List[FieldElement] = next_values
+            current_domain: List[FieldElement] = next_domain
             
-        final_constant = current_values[0]
+        final_constant: FieldElement = current_values[0]
         return commitments, final_constant
 
     def query_phase(self, indices: List[int]) -> List[List[Dict[str, Any]]]:
@@ -102,17 +102,17 @@ class FriProver:
         for layer in self.layers[:-1]: # Don't need path for the constant (last layer)
             layer_proofs: List[Dict[str, Any]] = []
             for idx in current_indices:
-                length = len(layer.values)
-                half_len = length // 2
+                length: int = len(layer.values)
+                half_len: int = length // 2
                 
-                idx_mod = idx % half_len
-                partner_idx = (idx + half_len) % length
+                idx_mod: int = idx % half_len
+                partner_idx: int = (idx + half_len) % length
                 
-                val_idx = layer.values[idx]
-                path_idx = layer.merkle_tree.get_authentication_path(idx)
+                val_idx: FieldElement = layer.values[idx]
+                path_idx: List[bytes] = layer.merkle_tree.get_authentication_path(idx)
                 
-                val_partner = layer.values[partner_idx]
-                path_partner = layer.merkle_tree.get_authentication_path(partner_idx)
+                val_partner: FieldElement = layer.values[partner_idx]
+                path_partner: List[bytes] = layer.merkle_tree.get_authentication_path(partner_idx)
                 
                 layer_proofs.append({
                     'idx': idx,
@@ -126,6 +126,6 @@ class FriProver:
             all_layer_proofs.append(layer_proofs)
             
             # Next layer indices
-            current_indices = [idx % (len(layer.values)//2) for idx in current_indices]
+            current_indices: List[int] = [idx % (len(layer.values)//2) for idx in current_indices]
         
         return all_layer_proofs 
