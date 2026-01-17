@@ -1,22 +1,26 @@
+from __future__ import annotations
+from typing import List, Union
 from .field import FieldElement
 
 class Polynomial:
-    def __init__(self, coefficients):
+    def __init__(self, coefficients: List[Union[int, FieldElement]]) -> None:
         """
         coefficients: list of FieldElement, ordered from x^0 to x^n.
         P(x) = coeffs[0] + coeffs[1]*x + ...
         """
-        self.coefficients = [c if isinstance(c, FieldElement) else FieldElement(c) for c in coefficients]
+        self.coefficients: List[FieldElement] = [
+            c if isinstance(c, FieldElement) else FieldElement(c) for c in coefficients
+        ]
         # Remove trailing zeros (leading high-degree coefficients that are 0)
         while len(self.coefficients) > 0 and self.coefficients[-1] == FieldElement(0):
             self.coefficients.pop()
         if not self.coefficients:
             self.coefficients = [FieldElement(0)]
 
-    def degree(self):
+    def degree(self) -> int:
         return len(self.coefficients) - 1
 
-    def eval(self, x):
+    def eval(self, x: Union[int, FieldElement]) -> FieldElement:
         """
         Evaluate P(x) using Horner's method.
         """
@@ -29,42 +33,42 @@ class Polynomial:
             result = result * x + coef
         return result
 
-    def __add__(self, other):
+    def __add__(self, other: Polynomial) -> Polynomial:
         max_len = max(len(self.coefficients), len(other.coefficients))
-        new_coeffs = [FieldElement(0)] * max_len
+        new_coeffs: List[FieldElement] = [FieldElement(0)] * max_len
         for i in range(max_len):
             c1 = self.coefficients[i] if i < len(self.coefficients) else FieldElement(0)
             c2 = other.coefficients[i] if i < len(other.coefficients) else FieldElement(0)
             new_coeffs[i] = c1 + c2
         return Polynomial(new_coeffs)
 
-    def __sub__(self, other):
+    def __sub__(self, other: Polynomial) -> Polynomial:
         max_len = max(len(self.coefficients), len(other.coefficients))
-        new_coeffs = [FieldElement(0)] * max_len
+        new_coeffs: List[FieldElement] = [FieldElement(0)] * max_len
         for i in range(max_len):
             c1 = self.coefficients[i] if i < len(self.coefficients) else FieldElement(0)
             c2 = other.coefficients[i] if i < len(other.coefficients) else FieldElement(0)
             new_coeffs[i] = c1 - c2
         return Polynomial(new_coeffs)
 
-    def __mul__(self, other):
-        if isinstance(other, FieldElement) or isinstance(other, int):
+    def __mul__(self, other: Union[Polynomial, FieldElement, int]) -> Polynomial:
+        if isinstance(other, (FieldElement, int)):
             return Polynomial([c * other for c in self.coefficients])
             
         # Basic O(N^2) multiplication
         deg1 = self.degree()
         deg2 = other.degree()
-        new_coeffs = [FieldElement(0)] * (deg1 + deg2 + 1)
+        new_coeffs: List[FieldElement] = [FieldElement(0)] * (deg1 + deg2 + 1)
         for i in range(deg1 + 1):
             for j in range(deg2 + 1):
                 new_coeffs[i+j] += self.coefficients[i] * other.coefficients[j]
         return Polynomial(new_coeffs)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Poly({self.coefficients})"
 
     @staticmethod
-    def lagrange_interpolate(x_values, y_values):
+    def lagrange_interpolate(x_values: List[FieldElement], y_values: List[FieldElement]) -> Polynomial:
         """
         Returns a Polynomial P such that P(x_i) = y_i for all i.
         Uses the standard Lagrange formula:

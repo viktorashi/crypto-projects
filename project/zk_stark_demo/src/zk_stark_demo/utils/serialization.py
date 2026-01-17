@@ -1,9 +1,9 @@
-
+from __future__ import annotations
 import json
-from base64 import b64encode, b64decode
+from typing import Any, Dict, List, Union
 from ..algebra.field import FieldElement
 
-def serialize_proof(proof):
+def serialize_proof(proof: Any) -> Any:
     """
     Recursively converts proof object to JSON-friendly format.
     FieldElement -> int
@@ -20,45 +20,20 @@ def serialize_proof(proof):
     else:
         return proof
 
-def deserialize_proof(data):
+def deserialize_proof(data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Converts back to internal types.
-    Strict schema is hard since we don't know what is FieldElement vs int.
-    But for FieldElements, usually they appear in 'val' fields or specific lists.
-    
-    Actually, easiest way: 
-    - Convert hex strings to bytes (if they look like hex? dangerous).
-    - Convert specific keys.
     """
-    # Just return the dict, and let the components convert when needed?
-    # StarkVerifier expects FieldElements in some places (like final constant).
-    # And FriVerifier expects it.
-    
-    # We'll implement a helper that reconstructs specific structures if needed.
-    # But recursively mapping back is ambiguous.
-    
-    # Strategy: Leave as primitives (int/hex-str) and modify Verifier to handle them?
-    # Or implement a smarter deserializer that knows the schema.
-    
-    # Schema-aware deserialization:
-    # trace_root: hex -> bytes
-    # fri_commitments: list of hex -> bytes
-    # fri_final: int -> FieldElement
-    # fri_layer_proofs: list of list of dicts:
-    #    val: int -> FieldElement
-    #    path: list of hex -> bytes
-    # ...
-    
-    new_proof = {}
+    new_proof: Dict[str, Any] = {}
     new_proof['trace_root'] = bytes.fromhex(data['trace_root'])
     new_proof['fri_commitments'] = [bytes.fromhex(x) for x in data['fri_commitments']]
     new_proof['fri_final'] = FieldElement(data['fri_final'])
     
     new_proof['fri_layer_proofs'] = []
     for layer in data['fri_layer_proofs']:
-        new_layer = []
+        new_layer: List[Dict[str, Any]] = []
         for q in layer:
-            item = {}
+            item: Dict[str, Any] = {}
             item['idx'] = q['idx']
             item['val'] = FieldElement(q['val'])
             item['path'] = [bytes.fromhex(x) for x in q['path']]
@@ -79,26 +54,27 @@ def deserialize_proof(data):
         item['next_path'] = [bytes.fromhex(x) for x in q['next_path']]
         new_proof['trace_queries'].append(item)
         
-    new_proof['boundary_proofs'] = []
-    for q in data['boundary_proofs']:
-        item = {}
-        item['step_idx'] = q['step_idx']
-        item['lde_idx'] = q['lde_idx']
-        item['reg_idx'] = q['reg_idx']
-        item['val'] = FieldElement(q['val'])
-        item['trace_val'] = FieldElement(q['trace_val'])
-        item['trace_row'] = [FieldElement(x) for x in q['trace_row']]
-        item['path'] = [bytes.fromhex(x) for x in q['path']]
-        new_proof['boundary_proofs'].append(item)
+    if 'boundary_proofs' in data:
+        new_proof['boundary_proofs'] = []
+        for q in data['boundary_proofs']:
+            item = {}
+            item['step_idx'] = q['step_idx']
+            item['lde_idx'] = q['lde_idx']
+            item['reg_idx'] = q['reg_idx']
+            item['val'] = FieldElement(q['val'])
+            item['trace_val'] = FieldElement(q['trace_val'])
+            item['trace_row'] = [FieldElement(x) for x in q['trace_row']]
+            item['path'] = [bytes.fromhex(x) for x in q['path']]
+            new_proof['boundary_proofs'].append(item)
         
     return new_proof
 
-def save_proof(proofdict, filename):
+def save_proof(proofdict: Dict[str, Any], filename: str) -> None:
     json_ready = serialize_proof(proofdict)
     with open(filename, 'w') as f:
         json.dump(json_ready, f, indent=2)
         
-def load_proof(filename):
+def load_proof(filename: str) -> Dict[str, Any]:
     with open(filename, 'r') as f:
         data = json.load(f)
     return deserialize_proof(data)

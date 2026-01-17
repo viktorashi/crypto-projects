@@ -1,36 +1,34 @@
-
-from typing import List
+from __future__ import annotations
+from typing import List, Dict, Any
 from ..algebra.field import FieldElement
 from ..algebra.merkle import MerkleTree
 from .channel import Channel
-from .fri_verifier import FriVerifier
+from .fri_verifier import FriVerifier, FriProof
 from .air import AIR
 
 class StarkVerifier:
-    def __init__(self, air: AIR):
-        self.air = air
-        self.channel = Channel()
+    def __init__(self, air: AIR) -> None:
+        self.air: AIR = air
+        self.channel: Channel = Channel()
         
-    def verify(self, proof):
+    def verify(self, proof: Dict[str, Any]) -> bool:
         # 1. Read Trace Root
-        trace_root = proof['trace_root']
+        trace_root: bytes = proof['trace_root']
         self.channel.send(trace_root)
         
         # 2. Generate Alphas (Constraint Combination Coefficients)
-        # Must match Prover logic
-        dummy_step = [FieldElement(0)] * self.air.trace_width()
+        dummy_step: List[FieldElement] = [FieldElement(0)] * self.air.trace_width()
         constraints = self.air.evaluate_transition_constraints(dummy_step, dummy_step)
         num_constraints = len(constraints)
         
-        alphas = [self.channel.receive_random_field_element() for _ in range(num_constraints)]
+        alphas: List[FieldElement] = [self.channel.receive_random_field_element() for _ in range(num_constraints)]
         
         # Boundary coefficients
         boundary_constraints = self.air.get_boundary_constraints()
-        betas = [self.channel.receive_random_field_element() for _ in boundary_constraints]
+        betas: List[FieldElement] = [self.channel.receive_random_field_element() for _ in boundary_constraints]
         
         # 3. Verify FRI
-        # Construct FRI Proof object from the big proof
-        fri_proof = {
+        fri_proof: FriProof = {
             'commitments': proof['fri_commitments'],
             'final_constant': proof['fri_final'],
             'layer_proofs': proof['fri_layer_proofs']
@@ -39,10 +37,7 @@ class StarkVerifier:
         fri_verifier = FriVerifier(fri_proof, self.channel)
         
         # Domain Params
-        # We need the lengths.
-        # Original Trace Length N
         N = self.air.trace_length()
-        # Blowup k=4 (hardcoded in Prover for now, essential consistency)
         blowup_factor = 4 
         lde_length = N * blowup_factor
         
@@ -50,22 +45,20 @@ class StarkVerifier:
             print("FRI Verification Failed")
             return False
             
-        # 4. Consistency Check (Deep ALI / Constraint Check)
-        
+        # 4. Consistency Check
         num_queries = 10
-        indices = []
+        indices: List[int] = []
         for _ in range(num_queries):
             idx = self.channel.receive_random_int(0, lde_length)
             indices.append(idx)
             
-        trace_queries = proof['trace_queries']
+        trace_queries: List[Dict[str, Any]] = proof['trace_queries']
         if len(trace_queries) != num_queries:
              print("Incorrect number of trace queries")
              return False
              
         # Re-derive domains
         g = FieldElement.generator_of_order(N)
-        # LDE domain generator h s.t. h^k = g?
         shift = FieldElement(3)
         h = FieldElement.generator_of_order(lde_length)
         
@@ -77,7 +70,7 @@ class StarkVerifier:
                 return False
                 
             # Verify Trace Merkle Paths
-            row_val = q['val']
+            row_val: List[FieldElement] = q['val']
             # Reconstruct leaf
             leaf_data = str(row_val).encode()
             if not MerkleTree.verify_claim(trace_root, leaf_data, q['path'], idx):
@@ -85,11 +78,11 @@ class StarkVerifier:
                  return False
                  
             # Verify Next Step
-            next_idx = q['next_idx']
+            next_idx: int = q['next_idx']
             expected_next = (idx + blowup_factor) % lde_length
             if next_idx != expected_next:
                 return False
-            next_row_val = q['next_val']
+            next_row_val: List[FieldElement] = q['next_val']
             next_leaf = str(next_row_val).encode()
             if not MerkleTree.verify_claim(trace_root, next_leaf, q['next_path'], next_idx):
                  print(f"Trace Next Merkle verify failed at {next_idx}")
@@ -115,7 +108,6 @@ class StarkVerifier:
             # --- Boundary Constraints ---
             term_boundary = FieldElement(0)
             for k, (step, reg, val) in enumerate(boundary_constraints):
-                 # Constraint: (Trace[reg] - val) / (x - g^step)
                  t_val = row_val[reg]
                  x_k = g.pow(step)
                  
@@ -127,7 +119,7 @@ class StarkVerifier:
             
             # Check against FRI value
             layer_0_proofs = fri_proof['layer_proofs'][0]
-            found_fri_val = None
+            found_fri_val: Optional[FieldElement] = None
             for p in layer_0_proofs:
                 if p['idx'] == idx:
                     found_fri_val = p['val']

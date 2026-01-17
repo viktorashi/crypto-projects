@@ -1,12 +1,12 @@
-
-from typing import List
+from __future__ import annotations
+from typing import List, Tuple
 from ..algebra.field import FieldElement
 from ..stark.air import AIR
 
 class FibonacciAIR(AIR):
-    def __init__(self, trace_length, result_value):
-        self.length = trace_length
-        self.result = result_value # Public input: the expected result at the end
+    def __init__(self, trace_length: int, result_value: FieldElement) -> None:
+        self.length: int = trace_length
+        self.result: FieldElement = result_value # Public input: the expected result at the end
         
     def trace_width(self) -> int:
         return 2
@@ -17,12 +17,12 @@ class FibonacciAIR(AIR):
         start_values: [a, b]
         """
         assert len(start_values) == 2
-        trace = []
-        state = [FieldElement(start_values[0]), FieldElement(start_values[1])]
+        trace: List[List[FieldElement]] = []
+        state: List[FieldElement] = [FieldElement(start_values[0]), FieldElement(start_values[1])]
         trace.append(state)
         
         for _ in range(self.length - 1):
-            next_state = [
+            next_state: List[FieldElement] = [
                 state[1],
                 state[0] + state[1]
             ]
@@ -34,7 +34,7 @@ class FibonacciAIR(AIR):
     def trace_length(self) -> int:
         return self.length
 
-    def get_boundary_constraints(self) -> List:
+    def get_boundary_constraints(self) -> List[Tuple[int, int, FieldElement]]:
         # Step 0: [1, 1] (Fib start)
         # Step last: [?, result]
         return [
@@ -43,7 +43,11 @@ class FibonacciAIR(AIR):
             (self.length - 1, 1, self.result)
         ]
 
-    def evaluate_transition_constraints(self, current_step: List[FieldElement], next_step: List[FieldElement]) -> List[FieldElement]:
+    def evaluate_transition_constraints(
+        self, 
+        current_step: List[FieldElement], 
+        next_step: List[FieldElement]
+    ) -> List[FieldElement]:
         # R0_cur, R1_cur = current_step
         # R0_next, R1_next = next_step
         

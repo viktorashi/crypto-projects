@@ -1,4 +1,4 @@
-
+from __future__ import annotations
 import hashlib
 from ..algebra.field import FieldElement
 
@@ -7,10 +7,10 @@ class Channel:
     Implements the Fiat-Shamir heuristic.
     A non-interactive channel that generates random challenges based on the transcript.
     """
-    def __init__(self):
-        self.state = b''
+    def __init__(self) -> None:
+        self.state: bytes = b''
 
-    def send(self, data: bytes):
+    def send(self, data: bytes) -> None:
         """
         Prover sends data to the channel.
         State is updated: state = hash(state || data)
@@ -42,7 +42,7 @@ class Channel:
         val = int.from_bytes(randomness[:8], 'big')
         return FieldElement(val)
 
-    def receive_random_int(self, min_val, max_val) -> int:
+    def receive_random_int(self, min_val: int, max_val: int) -> int:
         """
         Returns random integer in [min_val, max_val).
         """

@@ -1,30 +1,32 @@
-
+from __future__ import annotations
 import hashlib
-from typing import List
+from typing import List, Any, Iterable
 
 class MerkleTree:
     """
     A simple Merkle Tree implementation using SHA256.
     """
     
-    def __init__(self, data: List[bytes]):
+    def __init__(self, data: List[bytes]) -> None:
         """
         data: list of bytes to commit to.
         """
-        self.leaves = data
-        self.tree = []
+        self.leaves: List[bytes] = data
+        self.tree: List[List[bytes]] = []
         self._build_tree()
 
     def _hash(self, data: bytes) -> bytes:
         return hashlib.sha256(data).digest()
 
-    def _build_tree(self):
-        # Layer 0 are the leaves
-        current_layer = [self._hash(d) for d in self.leaves]
+    def _build_tree(self) -> None:
+        """
+        Layer 0 are the leaves
+        """
+        current_layer: List[bytes] = [self._hash(d) for d in self.leaves]
         self.tree = [current_layer]
         
         while len(current_layer) > 1:
-            next_layer = []
+            next_layer: List[bytes] = []
             for i in range(0, len(current_layer), 2):
                 left = current_layer[i]
                 # If odd number of nodes, duplicate the last one
@@ -45,7 +47,7 @@ class MerkleTree:
         Returns the authentication path for the leaf at `index`.
         The path is a list of sibling hashes needed to reconstruct the root.
         """
-        path = []
+        path: List[bytes] = []
         for layer in self.tree[:-1]: # Don't need root's sibling (it has none)
             is_right_child = (index % 2 == 1)
             sibling_index = index - 1 if is_right_child else index + 1
@@ -79,7 +81,7 @@ class MerkleTree:
         return current_hash == root
 
     @staticmethod
-    def commit(data_elements):
+    def commit(data_elements: Iterable[Any]) -> MerkleTree:
         """
         Helper to quickly get a root from data.
         """

@@ -11,7 +11,7 @@ from zk_stark_demo.stark.verifier import StarkVerifier
 from zk_stark_demo.algebra.field import FieldElement
 from zk_stark_demo.utils.serialization import load_proof
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="zk-STARK Verifier for Fibonacci")
     parser.add_argument("--proof", type=str, required=True, help="Path to proof.json")
     parser.add_argument("--length", type=int, required=True, help="Length of computation confirmed")

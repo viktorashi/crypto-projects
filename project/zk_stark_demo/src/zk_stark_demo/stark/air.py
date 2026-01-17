@@ -1,6 +1,6 @@
-
+from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Tuple
 from ..algebra.field import FieldElement
 
 class AIR(ABC):
@@ -18,7 +18,7 @@ class AIR(ABC):
         pass
         
     @abstractmethod
-    def get_boundary_constraints(self) -> List:
+    def get_boundary_constraints(self) -> List[Tuple[int, int, FieldElement]]:
         """
         Returns list of (step_index, register_index, value) constraints.
         e.g. (0, 0, 1) -> Register 0 at step 0 must be 1.
@@ -26,7 +26,11 @@ class AIR(ABC):
         pass
         
     @abstractmethod
-    def evaluate_transition_constraints(self, current_step: List[FieldElement], next_step: List[FieldElement]) -> List[FieldElement]:
+    def evaluate_transition_constraints(
+        self, 
+        current_step: List[FieldElement], 
+        next_step: List[FieldElement]
+    ) -> List[FieldElement]:
         """
         Returns a list of values that must be zero for a valid transition.
         P(x) constraints.
