@@ -13,13 +13,12 @@ class LowDegreeExtension:
     def __init__(self, trace: Trace, blowup_factor: int = 8) -> None:
         self.trace: Trace = trace
         self.blowup_factor: int = blowup_factor
-        self.trace_length: int = trace.length
         self.lde_length: int = trace.length * blowup_factor
         
         # 1. Define Domain D (Trace Domain)
         # Generator g such that g^trace_length = 1
-        self.g: FieldElement = FieldElement.generator_of_order(self.trace_length)
-        self.domain_d: List[FieldElement] = [self.g.pow(i) for i in range(self.trace_length)]
+        self.g: FieldElement = FieldElement.generator_of_order(self.trace.length)
+        self.domain_d: List[FieldElement] = [self.g.pow(i) for i in range(self.trace.length)]
         
         # 2. Define Domain D_LDE (Evaluation Domain)
         # To avoid division by zero issues in constraints (x - x_i), we usually shift D_LDE by an offset.
