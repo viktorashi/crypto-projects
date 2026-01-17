@@ -39,8 +39,8 @@ class FriProver:
         interaction_channel: Simulated channel to get random challenges from verifier.
         Returns: list of layer roots, and final constant.
         """
-        current_values = self.layers[0].values
-        current_domain = self.layers[0].domain
+        current_values: List[FieldElement] = self.layers[0].values
+        current_domain: List[FieldElement] = self.layers[0].domain
         
         # Send initial root
         interaction_channel.send(self.layers[0].root)
