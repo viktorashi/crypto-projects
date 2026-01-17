@@ -12,8 +12,7 @@ class Trace:
         self.data = data # list of rows
         
         # Ensure length is power of 2
-        self.original_length = len(data)
-        self.length = self.next_power_of_two(self.original_length)
+        self.length = self.next_power_of_two(len(data))
         
         # Pad with zeros (or last state? usually cyclic or don't care)
         # For simplicity, pad with zeros, but secure protocols might need care here.

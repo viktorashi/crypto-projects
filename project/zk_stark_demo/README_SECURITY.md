@@ -1,4 +1,3 @@
-
 # Post-Quantum Security of zk-STARKs
 
 This document explains why the protocol implemented in this demo is considered **Post-Quantum Secure**, unlike many traditional zk-SNARKs.
