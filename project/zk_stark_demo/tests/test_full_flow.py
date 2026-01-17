@@ -6,7 +6,7 @@ import os
 # Add src to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
-from zk_stark_demo.examples.fibonacci import FibonacciAIR
+from zk_stark_demo.air_examples.fibonacci import FibonacciAIR
 from zk_stark_demo.stark.prover import StarkProver
 from zk_stark_demo.stark.verifier import StarkVerifier
 from zk_stark_demo.algebra.field import FieldElement

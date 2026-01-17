@@ -1,6 +1,6 @@
 
 import unittest
-from zk_stark_demo.examples.cubic import CubicAIR
+from zk_stark_demo.air_examples.cubic import CubicAIR
 from zk_stark_demo.stark.prover import StarkProver
 from zk_stark_demo.stark.verifier import StarkVerifier
 from zk_stark_demo.algebra.field import FieldElement

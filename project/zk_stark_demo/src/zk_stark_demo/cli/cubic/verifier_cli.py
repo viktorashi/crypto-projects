@@ -6,7 +6,7 @@ import os
 # Add src to path if running directly
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
 
-from zk_stark_demo.examples.cubic import CubicAIR
+from zk_stark_demo.air_examples.cubic import CubicAIR
 from zk_stark_demo.stark.verifier import StarkVerifier
 from zk_stark_demo.algebra.field import FieldElement
 from zk_stark_demo.utils.serialization import load_proof

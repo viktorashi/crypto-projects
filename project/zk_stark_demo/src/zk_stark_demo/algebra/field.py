@@ -6,7 +6,7 @@ class FieldElement:
     """
     Represents an element effectively in a Finite Field GF(P).
     We use a small prime for this demo to keep debugging easy,
-    but large enough to generally work for small examples.
+    but large enough to generally work for small air_examples.
 
     Using P = 3 * 2^30 + 1 (a STARK-friendly prime) would be ideal for efficiency,
     but for this pure Python demo, we can just use a generic large prime or strictly enforce
