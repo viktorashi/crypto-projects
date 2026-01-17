@@ -67,6 +67,9 @@ def deserialize_proof(data: Dict[str, Any]) -> Dict[str, Any]:
             item['path'] = [bytes.fromhex(x) for x in q['path']]
             new_proof['boundary_proofs'].append(item)
         
+    if 'public_inputs' in data:
+        new_proof['public_inputs'] = data['public_inputs']
+
     return new_proof
 
 def save_proof(proofdict: Dict[str, Any], filename: str) -> None:

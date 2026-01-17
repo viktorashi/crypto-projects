@@ -21,6 +21,14 @@ class CubicAIR(AIR):
         
     def trace_width(self) -> int:
         return 1
+
+    def get_public_inputs(self) -> Dict[str, Any]:
+        return {
+            'length': self.length,
+            'result': self.result,
+            'start_value': self.start_value
+        }
+
         
     def constraint_degree(self) -> int:
         return 3 # Cubic constraints

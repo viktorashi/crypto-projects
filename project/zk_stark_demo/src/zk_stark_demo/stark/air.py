@@ -45,3 +45,11 @@ class AIR(ABC):
         P(x) constraints.
         """
         pass
+
+    def get_public_inputs(self) -> Dict[str, Any]:
+        """
+        Returns a dictionary of public inputs defining the computation instance.
+        e.g. {'trace_length': 8, 'result': FieldElement(34)}
+        """
+        return {}
+

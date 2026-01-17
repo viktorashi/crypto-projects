@@ -1082,5 +1082,9 @@
         "ef00173d5b39ad2c8f3f747012595056337353a61cfda87ff938cc8d7bcf6596"
       ]
     }
-  ]
+  ],
+  "public_inputs": {
+    "length": 8,
+    "result": 34
+  }
 }

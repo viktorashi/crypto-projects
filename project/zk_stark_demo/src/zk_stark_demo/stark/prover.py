@@ -145,7 +145,8 @@ class StarkProver:
             'fri_commitments': fri_commitments,
             'fri_final': final_const,
             'fri_layer_proofs': fri_layer_proofs,
-            'trace_queries': trace_queries
+            'trace_queries': trace_queries,
+            'public_inputs': self.air.get_public_inputs()
         }
         
         return proof

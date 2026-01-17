@@ -3,7 +3,7 @@ import sys
 import os
 
 # Add src to path if running directly
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
 
 from zk_stark_demo.examples.fibonacci import FibonacciAIR
 from zk_stark_demo.stark.prover import StarkProver

@@ -11,6 +11,13 @@ class FibonacciAIR(AIR):
     def trace_width(self) -> int:
         return 2
 
+    def get_public_inputs(self) -> Dict[str, Any]:
+        return {
+            'length': self.length,
+            'result': self.result
+        }
+
+
     def generate_trace(self, start_values: List[int]) -> List[List[FieldElement]]:
         """
         Generates the trace for the Fibonacci sequence.

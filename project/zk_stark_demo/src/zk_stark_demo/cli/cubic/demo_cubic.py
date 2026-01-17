@@ -3,7 +3,7 @@ import os
 import time
 
 # Add src to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
 
 from zk_stark_demo.examples.cubic import CubicAIR
 from zk_stark_demo.stark.prover import StarkProver
