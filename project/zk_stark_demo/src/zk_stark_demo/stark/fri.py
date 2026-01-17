@@ -20,17 +20,20 @@ class FriProver:
     Implements the FRI Protocol (Prover side).
     Prove that a committed polynomial has low degree.
     """
-    def __init__(self, polynomial: Polynomial, domain: List[FieldElement]) -> None:
+    def __init__(self, polynomial: Polynomial, domain: List[FieldElement], values: List[FieldElement] = None) -> None:
         """
         polynomial: The polynomial to prove (usually composition polynomial).
         domain: The evaluation domain (must be power of 2 sized).
+        values: Optional pre-computed evaluations of polynomial on domain.
         """
         self.polynomial: Polynomial = polynomial
         self.domain: List[FieldElement] = domain
         self.layers: List[FriLayer] = []
         
         # Initial evaluation
-        values: List[FieldElement] = [polynomial.eval(x) for x in domain]
+        if values is None:
+            values = [polynomial.eval(x) for x in domain]
+            
         self.layers.append(FriLayer(values, domain))
 
     def generate_proof(self, interaction_channel: Channel) -> Tuple[List[bytes], FieldElement]:

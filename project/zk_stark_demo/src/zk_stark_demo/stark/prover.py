@@ -8,6 +8,7 @@ from .lde import LowDegreeExtension
 from .air import AIR
 from .fri import FriProver
 from .channel import Channel
+from ..algebra.fft import ifft
 
 class StarkProver:
     def __init__(self, air: AIR, trace_data: List[List[FieldElement]]) -> None:
@@ -105,12 +106,60 @@ class StarkProver:
         if target_degree > lde_length:
             raise ValueError(f"Constraint degree {c_degree} too high for blowup factor")
             
-        subset_domain = domain_lde[:target_degree]
-        subset_vals = composition_evals[:target_degree]
-        q_poly = Polynomial.lagrange_interpolate(subset_domain, subset_vals)
+
+        # 5. Interpolate Q(x)
+        # We need to recover the coefficients of Q(x) from its evaluations.
+        # domain_lde is a coset: shift * <h>, size = blowup * N
+        # We want to pick a subset of points that forms a coset of a smaller subgroup to use IFFT.
+        
+        # Determine strict degree bound
+        expected_degree = (c_degree - 1) * self.trace.length + (self.trace.length - 1)
+        # Actually Q * Z = C. Deg(Q) = Deg(C) - Deg(Z) = c_deg * (N-1) - (N-1) = (c_deg-1)*(N-1).
+        # For c_deg=1, Deg(Q) = 0 (Constant??). 
+        # Wait, strictly speaking for AIR constraints:
+        # C(x) has degree roughly deg * N.
+        # Z(x) has degree N.
+        # Q(x) has degree (deg-1) * N.
+        
+        # We need a domain size usually >= degree + 1.
+        # We'll use the smallest power of 2 that covers the degree, derived from our available blowup.
+        
+        # For this demo, let's assume we can use N evaluations if degree <= N-1 (deg=1 or 2 constraints typically fine).
+        # If we need more, we decrease stride.
+        
+        needed_len = self.trace.length
+        while needed_len <= expected_degree:
+             needed_len *= 2
+             
+        stride = lde_length // needed_len
+        
+        subset_vals = composition_evals[::stride]
+        
+        # These evaluations are on the domain: shift * h^{0}, shift * h^{stride}, ...
+        # Let H = h^stride. This is a generator of order `needed_len`.
+        # Points are s, sH, sH^2... (Coset)
+        
+        subgroup_generator = lde.h.pow(stride)
+        
+        # 1. Coset IFFT:
+        # P(z) = Q(s * z). We have evaluations of P at 1, H, H^2...
+        # coeffs_P = ifft(vals, H)
+        coeffs_p = ifft(subset_vals, subgroup_generator)
+        
+        # 2. Recover Q(x)
+        # Q(x) = P(x/s). If P(z) = sum a_i z^i, Q(x) = sum a_i s^{-i} x^i
+        # Scale coefficients by s^{-i}
+        s_inv = lde.shift.inv()
+        current_s_inv = FieldElement(1)
+        coeffs_q = []
+        for c in coeffs_p:
+            coeffs_q.append(c * current_s_inv)
+            current_s_inv = current_s_inv * s_inv
+            
+        q_poly = Polynomial(coeffs_q)
         
         # 6. FRI
-        fri_prover = FriProver(q_poly, domain_lde) # Use full domain for FRI
+        fri_prover = FriProver(q_poly, domain_lde, composition_evals) # Use full domain for FRI
         fri_commitments, final_const = fri_prover.generate_proof(self.channel)
         
         # 7. Construct Proof

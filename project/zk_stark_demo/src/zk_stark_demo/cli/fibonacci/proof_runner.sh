@@ -1,1 +1,1 @@
-uv run prover_cli.py --length 12
+uv run prover_cli.py --length 64
