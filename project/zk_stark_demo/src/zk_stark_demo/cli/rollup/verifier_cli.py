@@ -21,6 +21,14 @@ class RollupVerifierCLI(BaseVerifierCLI[RollupAIR]):
     def default_proof_file(self) -> str:
         return "proof_rollup_large.json"
 
+    def add_arguments(self, parser: argparse.ArgumentParser) -> None:
+        parser.add_argument(
+            "--db",
+            type=str,
+            default="mock_db.json",
+            help="Path to the mock database file",
+        )
+
     def create_air_from_proof(
         self, args: argparse.Namespace, proof: dict[str, Any]
     ) -> RollupAIR:
