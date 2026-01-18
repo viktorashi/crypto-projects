@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Any
 from ..algebra.field import FieldElement
 from ..stark.air import AIR
 

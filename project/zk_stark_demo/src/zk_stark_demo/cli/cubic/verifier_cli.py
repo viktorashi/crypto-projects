@@ -22,6 +22,26 @@ class CubicVerifierCLI(BaseVerifierCLI[CubicAIR]):
     def default_proof_file(self) -> str:
         return "proof_cubic.json"
 
+    def add_arguments(self, parser: argparse.ArgumentParser) -> None:
+        parser.add_argument(
+            "--length",
+            type=int,
+            default=None,
+            help="Length of the trace",
+        )
+        parser.add_argument(
+            "--result",
+            type=int,
+            default=None,
+            help="Result of the computation",
+        )
+        parser.add_argument(
+            "--start",
+            type=int,
+            default=None,
+            help="Start value of the computation",
+        )
+
     def create_air_from_proof(
         self, args: argparse.Namespace, proof: dict[str, Any]
     ) -> CubicAIR:
