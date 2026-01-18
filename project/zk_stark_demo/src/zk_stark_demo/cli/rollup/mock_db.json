@@ -1,0 +1,51 @@
+{
+    "users": [
+        1000,
+        1000,
+        1000,
+        500,
+        500
+    ],
+    "transactions": [
+        {
+            "from": 0,
+            "to": 1,
+            "amount": 50
+        },
+        {
+            "from": 1,
+            "to": 2,
+            "amount": 100
+        },
+        {
+            "from": 0,
+            "to": 3,
+            "amount": 25
+        },
+        {
+            "from": 4,
+            "to": 0,
+            "amount": 500
+        },
+        {
+            "from": 2,
+            "to": 4,
+            "amount": 10
+        },
+        {
+            "from": 3,
+            "to": 1,
+            "amount": 5
+        },
+        {
+            "from": 1,
+            "to": 0,
+            "amount": 200
+        },
+        {
+            "from": 4,
+            "to": 2,
+            "amount": 50
+        }
+    ]
+}

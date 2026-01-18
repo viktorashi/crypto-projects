@@ -1,0 +1,1 @@
+uv run src/zk_stark_demo/cli/rollup/prover_cli.py --db mock_db.json

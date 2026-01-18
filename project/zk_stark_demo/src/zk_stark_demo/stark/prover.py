@@ -18,7 +18,20 @@ class StarkProver:
         
     def prove(self) -> Dict[str, Any]:
         # 1. Low Degree Extension
-        blowup_factor = 4 # Security parameter
+        # Calculate required blowup
+        # Degree of constraints C(x) is roughly trace_length * constraint_degree
+        # We need LDE > Degree.
+        # So blowup * trace_length > trace_length * constraint_degree
+        # blowup > constraint_degree
+        
+        c_degree = self.air.constraint_degree()
+        min_blowup = c_degree + 1
+        
+        # Power of 2
+        blowup_factor = 4
+        while blowup_factor < min_blowup:
+            blowup_factor *= 2
+            
         lde = LowDegreeExtension(self.trace, blowup_factor)
         
         # 2. Commit to Trace

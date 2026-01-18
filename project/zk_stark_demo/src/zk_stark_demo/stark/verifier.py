@@ -38,7 +38,14 @@ class StarkVerifier:
         
         # Domain Params
         N = self.air.trace_length()
-        blowup_factor = 4 
+        
+        # Calculate expected blowup
+        c_degree = self.air.constraint_degree()
+        min_blowup = c_degree + 1
+        blowup_factor = 4
+        while blowup_factor < min_blowup:
+            blowup_factor *= 2
+            
         lde_length = N * blowup_factor
         
         if not fri_verifier.verify(domain_length=lde_length, domain_offset=FieldElement(3)):
