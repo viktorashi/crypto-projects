@@ -1,906 +1,141 @@
 {
   "users": [
-    1872,
-    1342,
-    1164,
-    1861,
-    1932,
-    1325,
-    1848,
-    1762,
-    1877,
-    1092,
-    1712,
-    1912,
-    1871,
-    1177,
-    1237,
-    1847,
-    1202,
-    1772,
-    1168,
-    1842,
-    1878,
-    1705,
-    1876,
-    1816,
-    1875,
-    1845,
-    1208,
-    1873,
-    1867,
-    1172,
-    1846,
-    1863,
-    1874,
-    1841,
-    1870,
-    1843,
-    1862,
-    1844,
-    1879,
-    1840,
-    1868,
-    1849,
-    1850,
-    1851,
-    1852,
-    1853,
-    1854,
-    1855,
-    1856,
-    1857
+    1200,
+    950,
+    1100,
+    800,
+    1500,
+    1300,
+    900,
+    1000,
+    1150,
+    1050
   ],
   "transactions": [
     {
-      "from": 12,
-      "to": 34,
-      "amount": 87
-    },
-    {
-      "from": 7,
-      "to": 21,
-      "amount": 150
-    },
-    {
-      "from": 3,
-      "to": 15,
-      "amount": 200
-    },
-    {
-      "from": 25,
-      "to": 2,
-      "amount": 50
-    },
-    {
-      "from": 18,
-      "to": 44,
-      "amount": 120
-    },
-    {
       "from": 0,
       "to": 1,
-      "amount": 99
-    },
-    {
-      "from": 8,
-      "to": 9,
-      "amount": 75
-    },
-    {
-      "from": 10,
-      "to": 11,
-      "amount": 60
-    },
-    {
-      "from": 13,
-      "to": 14,
-      "amount": 110
-    },
-    {
-      "from": 16,
-      "to": 17,
-      "amount": 95
-    },
-    {
-      "from": 19,
-      "to": 20,
-      "amount": 80
-    },
-    {
-      "from": 22,
-      "to": 23,
-      "amount": 130
-    },
-    {
-      "from": 24,
-      "to": 25,
-      "amount": 70
-    },
-    {
-      "from": 26,
-      "to": 27,
-      "amount": 65
-    },
-    {
-      "from": 28,
-      "to": 29,
-      "amount": 140
-    },
-    {
-      "from": 30,
-      "to": 31,
-      "amount": 155
-    },
-    {
-      "from": 32,
-      "to": 33,
-      "amount": 160
-    },
-    {
-      "from": 35,
-      "to": 36,
-      "amount": 170
-    },
-    {
-      "from": 37,
-      "to": 38,
-      "amount": 180
-    },
-    {
-      "from": 39,
-      "to": 40,
-      "amount": 190
-    },
-    {
-      "from": 41,
-      "to": 42,
-      "amount": 200
-    },
-    {
-      "from": 43,
-      "to": 44,
-      "amount": 210
-    },
-    {
-      "from": 45,
-      "to": 46,
-      "amount": 220
-    },
-    {
-      "from": 47,
-      "to": 48,
-      "amount": 230
-    },
-    {
-      "from": 49,
-      "to": 0,
-      "amount": 240
+      "amount": 50
     },
     {
       "from": 1,
       "to": 2,
-      "amount": 250
+      "amount": 75
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "amount": 100
     },
     {
       "from": 3,
       "to": 4,
-      "amount": 260
+      "amount": 60
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "amount": 80
     },
     {
       "from": 5,
       "to": 6,
-      "amount": 270
+      "amount": 90
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "amount": 40
     },
     {
       "from": 7,
       "to": 8,
-      "amount": 280
+      "amount": 120
+    },
+    {
+      "from": 8,
+      "to": 9,
+      "amount": 30
     },
     {
       "from": 9,
-      "to": 10,
-      "amount": 290
-    },
-    {
-      "from": 11,
-      "to": 12,
-      "amount": 300
-    },
-    {
-      "from": 13,
-      "to": 14,
-      "amount": 310
-    },
-    {
-      "from": 15,
-      "to": 16,
-      "amount": 320
-    },
-    {
-      "from": 17,
-      "to": 18,
-      "amount": 330
-    },
-    {
-      "from": 19,
-      "to": 20,
-      "amount": 340
-    },
-    {
-      "from": 21,
-      "to": 22,
-      "amount": 350
-    },
-    {
-      "from": 23,
-      "to": 24,
-      "amount": 360
-    },
-    {
-      "from": 25,
-      "to": 26,
-      "amount": 370
-    },
-    {
-      "from": 27,
-      "to": 28,
-      "amount": 380
-    },
-    {
-      "from": 29,
-      "to": 30,
-      "amount": 390
-    },
-    {
-      "from": 31,
-      "to": 32,
-      "amount": 400
-    },
-    {
-      "from": 33,
-      "to": 34,
-      "amount": 410
-    },
-    {
-      "from": 35,
-      "to": 36,
-      "amount": 420
-    },
-    {
-      "from": 37,
-      "to": 38,
-      "amount": 430
-    },
-    {
-      "from": 39,
-      "to": 40,
-      "amount": 440
-    },
-    {
-      "from": 41,
-      "to": 42,
-      "amount": 450
-    },
-    {
-      "from": 43,
-      "to": 44,
-      "amount": 460
-    },
-    {
-      "from": 45,
-      "to": 46,
-      "amount": 470
-    },
-    {
-      "from": 47,
-      "to": 48,
-      "amount": 480
-    },
-    {
-      "from": 49,
       "to": 0,
-      "amount": 490
+      "amount": 110
+    },
+    {
+      "from": 0,
+      "to": 2,
+      "amount": 60
     },
     {
       "from": 1,
       "to": 3,
-      "amount": 500
+      "amount": 70
     },
     {
       "from": 2,
       "to": 4,
-      "amount": 510
-    },
-    {
-      "from": 5,
-      "to": 7,
-      "amount": 520
-    },
-    {
-      "from": 6,
-      "to": 8,
-      "amount": 530
-    },
-    {
-      "from": 9,
-      "to": 11,
-      "amount": 540
-    },
-    {
-      "from": 10,
-      "to": 12,
-      "amount": 550
-    },
-    {
-      "from": 13,
-      "to": 15,
-      "amount": 560
-    },
-    {
-      "from": 14,
-      "to": 16,
-      "amount": 570
-    },
-    {
-      "from": 17,
-      "to": 19,
-      "amount": 580
-    },
-    {
-      "from": 18,
-      "to": 20,
-      "amount": 590
-    },
-    {
-      "from": 21,
-      "to": 23,
-      "amount": 600
-    },
-    {
-      "from": 22,
-      "to": 24,
-      "amount": 610
-    },
-    {
-      "from": 25,
-      "to": 27,
-      "amount": 620
-    },
-    {
-      "from": 26,
-      "to": 28,
-      "amount": 630
-    },
-    {
-      "from": 29,
-      "to": 31,
-      "amount": 640
-    },
-    {
-      "from": 30,
-      "to": 32,
-      "amount": 650
-    },
-    {
-      "from": 33,
-      "to": 35,
-      "amount": 660
-    },
-    {
-      "from": 34,
-      "to": 36,
-      "amount": 670
-    },
-    {
-      "from": 37,
-      "to": 39,
-      "amount": 680
-    },
-    {
-      "from": 38,
-      "to": 40,
-      "amount": 690
-    },
-    {
-      "from": 41,
-      "to": 43,
-      "amount": 700
-    },
-    {
-      "from": 42,
-      "to": 44,
-      "amount": 710
-    },
-    {
-      "from": 45,
-      "to": 47,
-      "amount": 720
-    },
-    {
-      "from": 46,
-      "to": 48,
-      "amount": 730
-    },
-    {
-      "from": 49,
-      "to": 1,
-      "amount": 740
-    },
-    {
-      "from": 2,
-      "to": 5,
-      "amount": 750
-    },
-    {
-      "from": 4,
-      "to": 7,
-      "amount": 760
-    },
-    {
-      "from": 6,
-      "to": 9,
-      "amount": 770
-    },
-    {
-      "from": 8,
-      "to": 11,
-      "amount": 780
-    },
-    {
-      "from": 10,
-      "to": 13,
-      "amount": 790
-    },
-    {
-      "from": 12,
-      "to": 15,
-      "amount": 800
-    },
-    {
-      "from": 14,
-      "to": 17,
-      "amount": 810
-    },
-    {
-      "from": 16,
-      "to": 19,
-      "amount": 820
-    },
-    {
-      "from": 18,
-      "to": 21,
-      "amount": 830
-    },
-    {
-      "from": 20,
-      "to": 23,
-      "amount": 840
-    },
-    {
-      "from": 22,
-      "to": 25,
-      "amount": 850
-    },
-    {
-      "from": 24,
-      "to": 27,
-      "amount": 860
-    },
-    {
-      "from": 26,
-      "to": 29,
-      "amount": 870
-    },
-    {
-      "from": 28,
-      "to": 31,
-      "amount": 880
-    },
-    {
-      "from": 30,
-      "to": 33,
-      "amount": 890
-    },
-    {
-      "from": 32,
-      "to": 35,
-      "amount": 900
-    },
-    {
-      "from": 34,
-      "to": 37,
-      "amount": 910
-    },
-    {
-      "from": 36,
-      "to": 39,
-      "amount": 920
-    },
-    {
-      "from": 38,
-      "to": 41,
-      "amount": 930
-    },
-    {
-      "from": 40,
-      "to": 43,
-      "amount": 940
-    },
-    {
-      "from": 42,
-      "to": 45,
-      "amount": 950
-    },
-    {
-      "from": 44,
-      "to": 47,
-      "amount": 960
-    },
-    {
-      "from": 46,
-      "to": 49,
-      "amount": 970
-    },
-    {
-      "from": 48,
-      "to": 2,
-      "amount": 980
+      "amount": 80
     },
     {
       "from": 3,
+      "to": 5,
+      "amount": 90
+    },
+    {
+      "from": 4,
       "to": 6,
-      "amount": 990
+      "amount": 100
     },
     {
       "from": 5,
+      "to": 7,
+      "amount": 110
+    },
+    {
+      "from": 6,
       "to": 8,
-      "amount": 1000
+      "amount": 120
     },
     {
       "from": 7,
-      "to": 10,
-      "amount": 1010
+      "to": 9,
+      "amount": 130
+    },
+    {
+      "from": 8,
+      "to": 0,
+      "amount": 140
     },
     {
       "from": 9,
-      "to": 12,
-      "amount": 1020
-    },
-    {
-      "from": 11,
-      "to": 14,
-      "amount": 1030
-    },
-    {
-      "from": 13,
-      "to": 16,
-      "amount": 1040
-    },
-    {
-      "from": 15,
-      "to": 18,
-      "amount": 1050
-    },
-    {
-      "from": 17,
-      "to": 20,
-      "amount": 1060
-    },
-    {
-      "from": 19,
-      "to": 22,
-      "amount": 1070
-    },
-    {
-      "from": 21,
-      "to": 24,
-      "amount": 1080
-    },
-    {
-      "from": 23,
-      "to": 26,
-      "amount": 1090
-    },
-    {
-      "from": 25,
-      "to": 28,
-      "amount": 1100
-    },
-    {
-      "from": 27,
-      "to": 30,
-      "amount": 1110
-    },
-    {
-      "from": 29,
-      "to": 32,
-      "amount": 1120
-    },
-    {
-      "from": 31,
-      "to": 34,
-      "amount": 1130
-    },
-    {
-      "from": 33,
-      "to": 36,
-      "amount": 1140
-    },
-    {
-      "from": 35,
-      "to": 38,
-      "amount": 1150
-    },
-    {
-      "from": 37,
-      "to": 40,
-      "amount": 1160
-    },
-    {
-      "from": 39,
-      "to": 42,
-      "amount": 1170
-    },
-    {
-      "from": 41,
-      "to": 44,
-      "amount": 1180
-    },
-    {
-      "from": 43,
-      "to": 46,
-      "amount": 1190
-    },
-    {
-      "from": 45,
-      "to": 48,
-      "amount": 1200
-    },
-    {
-      "from": 47,
       "to": 1,
-      "amount": 1210
+      "amount": 150
     },
     {
       "from": 0,
-      "to": 4,
-      "amount": 1220
+      "to": 5,
+      "amount": 55
     },
     {
       "from": 2,
-      "to": 6,
-      "amount": 1230
-    },
-    {
-      "from": 5,
-      "to": 9,
-      "amount": 1240
-    },
-    {
-      "from": 8,
-      "to": 12,
-      "amount": 1250
-    },
-    {
-      "from": 11,
-      "to": 15,
-      "amount": 1260
-    },
-    {
-      "from": 14,
-      "to": 18,
-      "amount": 1270
-    },
-    {
-      "from": 17,
-      "to": 21,
-      "amount": 1280
-    },
-    {
-      "from": 20,
-      "to": 24,
-      "amount": 1290
-    },
-    {
-      "from": 23,
-      "to": 27,
-      "amount": 1300
-    },
-    {
-      "from": 26,
-      "to": 30,
-      "amount": 1310
-    },
-    {
-      "from": 29,
-      "to": 33,
-      "amount": 1320
-    },
-    {
-      "from": 32,
-      "to": 36,
-      "amount": 1330
-    },
-    {
-      "from": 35,
-      "to": 39,
-      "amount": 1340
-    },
-    {
-      "from": 38,
-      "to": 42,
-      "amount": 1350
-    },
-    {
-      "from": 41,
-      "to": 45,
-      "amount": 1360
-    },
-    {
-      "from": 44,
-      "to": 48,
-      "amount": 1370
-    },
-    {
-      "from": 47,
-      "to": 2,
-      "amount": 1380
-    },
-    {
-      "from": 1,
-      "to": 5,
-      "amount": 1390
+      "to": 7,
+      "amount": 65
     },
     {
       "from": 4,
-      "to": 8,
-      "amount": 1400
-    },
-    {
-      "from": 7,
-      "to": 11,
-      "amount": 1410
-    },
-    {
-      "from": 10,
-      "to": 14,
-      "amount": 1420
-    },
-    {
-      "from": 13,
-      "to": 17,
-      "amount": 1430
-    },
-    {
-      "from": 16,
-      "to": 20,
-      "amount": 1440
-    },
-    {
-      "from": 19,
-      "to": 23,
-      "amount": 1450
-    },
-    {
-      "from": 22,
-      "to": 26,
-      "amount": 1460
-    },
-    {
-      "from": 25,
-      "to": 29,
-      "amount": 1470
-    },
-    {
-      "from": 28,
-      "to": 32,
-      "amount": 1480
-    },
-    {
-      "from": 31,
-      "to": 35,
-      "amount": 1490
-    },
-    {
-      "from": 34,
-      "to": 38,
-      "amount": 1500
-    },
-    {
-      "from": 37,
-      "to": 41,
-      "amount": 1510
-    },
-    {
-      "from": 40,
-      "to": 44,
-      "amount": 1520
-    },
-    {
-      "from": 43,
-      "to": 47,
-      "amount": 1530
-    },
-    {
-      "from": 46,
-      "to": 0,
-      "amount": 1540
-    },
-    {
-      "from": 3,
-      "to": 7,
-      "amount": 1550
+      "to": 9,
+      "amount": 75
     },
     {
       "from": 6,
-      "to": 10,
-      "amount": 1560
+      "to": 1,
+      "amount": 85
     },
     {
-      "from": 9,
-      "to": 13,
-      "amount": 1570
-    },
-    {
-      "from": 12,
-      "to": 16,
-      "amount": 1580
-    },
-    {
-      "from": 15,
-      "to": 19,
-      "amount": 1590
-    },
-    {
-      "from": 18,
-      "to": 22,
-      "amount": 1600
-    },
-    {
-      "from": 21,
-      "to": 25,
-      "amount": 1610
-    },
-    {
-      "from": 24,
-      "to": 28,
-      "amount": 1620
-    },
-    {
-      "from": 27,
-      "to": 31,
-      "amount": 1630
-    },
-    {
-      "from": 30,
-      "to": 34,
-      "amount": 1640
-    },
-    {
-      "from": 33,
-      "to": 37,
-      "amount": 1650
-    },
-    {
-      "from": 36,
-      "to": 40,
-      "amount": 1660
-    },
-    {
-      "from": 39,
-      "to": 43,
-      "amount": 1670
-    },
-    {
-      "from": 42,
-      "to": 46,
-      "amount": 1680
-    },
-    {
-      "from": 45,
-      "to": 49,
-      "amount": 1690
+      "from": 8,
+      "to": 3,
+      "amount": 95
     }
   ]
 }
