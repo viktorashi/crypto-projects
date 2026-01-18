@@ -128,8 +128,11 @@ class BaseVerifierCLI(ABC, Generic[AIR_T]):
     Subclasses must implement:
         - description: str property for argparse help
         - default_proof_file: str property for default proof filename
-        - add_arguments: method to add custom argparse arguments
         - create_air_from_proof: method to create AIR instance from proof data
+
+    Optional overrides:
+        - add_arguments: method to add custom argparse arguments
+        - get_verification_message: method to customize the verification message
     """
 
     @property
@@ -142,6 +145,15 @@ class BaseVerifierCLI(ABC, Generic[AIR_T]):
     @abstractmethod
     def default_proof_file(self) -> str:
         """Default proof filename to load."""
+        pass
+
+    def add_arguments(self, parser: argparse.ArgumentParser) -> None:
+        """
+        Add custom arguments to the parser (optional overrides for public inputs).
+
+        Args:
+            parser: The argparse.ArgumentParser to add arguments to.
+        """
         pass
 
     @abstractmethod
@@ -199,12 +211,21 @@ class BaseVerifierCLI(ABC, Generic[AIR_T]):
         print(self.get_verification_message(args, proof))
 
         # Create AIR from proof
+        start_time = time.perf_counter()
         air = self.create_air_from_proof(args, proof)
+        air_time = time.perf_counter() - start_time
+        print(f"AIR creation took {air_time:.3f}s")
 
         # Verify
+        print("Verifying...")
+        start_time = time.perf_counter()
         verifier = StarkVerifier(air)
+        result = verifier.verify(proof)
+        verify_time = time.perf_counter() - start_time
+        print(f"Verification took {verify_time:.3f}s")
+        print(f"Total verification time: {air_time + verify_time:.3f}s")
 
-        if verifier.verify(proof):
+        if result:
             print("✅ Proof Verified! Computation is valid.")
         else:
             print("❌ Verification Failed! Proof is invalid.")

@@ -22,6 +22,20 @@ class FibonacciVerifierCLI(BaseVerifierCLI[FibonacciAIR]):
     def default_proof_file(self) -> str:
         return "proof.json"
 
+    def add_arguments(self, parser: argparse.ArgumentParser) -> None:
+        parser.add_argument(
+            "--length",
+            type=int,
+            required=False,
+            help="Length of computation confirmed",
+        )
+        parser.add_argument(
+            "--result",
+            type=int,
+            required=False,
+            help="Expected result of the computation",
+        )
+
     def create_air_from_proof(
         self, args: argparse.Namespace, proof: dict[str, Any]
     ) -> FibonacciAIR:
