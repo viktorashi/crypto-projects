@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 import argparse
 import sys
 import os
+import time
 from typing import Any, TypeVar, Generic
 
 # Add src to path if running directly
@@ -101,12 +102,19 @@ class BaseProverCLI(ABC, Generic[AIR_T]):
         self.validate_args(args)
 
         # Create AIR and generate trace
+        start_time = time.perf_counter()
         air, trace_data = self.create_air_and_trace(args)
+        trace_time = time.perf_counter() - start_time
+        print(f"AIR and trace creation took {trace_time:.3f}s")
 
         # Generate proof
         print("Generating Proof...")
+        start_time = time.perf_counter()
         prover = StarkProver(air, trace_data)
         proof = prover.prove()
+        proof_time = time.perf_counter() - start_time
+        print(f"Proof generation took {proof_time:.3f}s")
+        print(f"Total proving time: {trace_time + proof_time:.3f}s")
 
         # Save proof
         save_proof(proof, args.output)
