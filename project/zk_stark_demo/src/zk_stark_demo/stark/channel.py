@@ -38,6 +38,7 @@ class Channel:
         # Let's do:
         # randomness = hash(state)
         # state = randomness (chaining)
+
         randomness = hashlib.sha256(self.state).digest()
         self.state = randomness
 
