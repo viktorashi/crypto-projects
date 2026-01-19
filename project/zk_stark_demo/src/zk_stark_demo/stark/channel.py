@@ -2,13 +2,15 @@ from __future__ import annotations
 import hashlib
 from ..algebra.field import FieldElement
 
+
 class Channel:
     """
     Implements the Fiat-Shamir heuristic.
     A non-interactive channel that generates random challenges based on the transcript.
     """
+
     def __init__(self) -> None:
-        self.state: bytes = b''
+        self.state: bytes = b""
 
     def send(self, data: bytes) -> None:
         """
@@ -27,19 +29,19 @@ class Channel:
         # For security, we should re-hash the state to avoid repeating.
         # Here we just use the current state hash.
         # To separate "randomness generation" from "state update", usually we hash with a counter or prefix.
-        
+
         # Simple implementation: hash state again to get randomness, but don't change state?
         # A standard construction:
         # random_bytes = hash(state || "random")
         # state = hash(state || "random") # Maybe?
-        
+
         # Let's do:
         # randomness = hash(state)
         # state = randomness (chaining)
         randomness = hashlib.sha256(self.state).digest()
-        self.state = randomness # chaining
-        
-        val = int.from_bytes(randomness[:8], 'big')
+        self.state = randomness
+
+        val = int.from_bytes(randomness[:8], "big")
         return FieldElement(val)
 
     def receive_random_int(self, min_val: int, max_val: int) -> int:
