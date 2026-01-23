@@ -26,7 +26,7 @@ class RollupProverCLI(BaseProverCLI[RollupAIR]):
         parser.add_argument(
             "--db",
             type=str,
-            required=True,
+            default="mock_db.json",
             help="Path to JSON file containing users and transactions",
         )
         parser.add_argument(
@@ -44,7 +44,15 @@ class RollupProverCLI(BaseProverCLI[RollupAIR]):
         self, args: argparse.Namespace
     ) -> tuple[RollupAIR, list[list[Any]]]:
         # Load DB
-        with open(args.db, "r") as f:
+        db_path = args.db
+        if not os.path.isabs(db_path):
+             # Try to find it relative to this file
+             current_dir = os.path.dirname(os.path.abspath(__file__))
+             potential_path = os.path.join(current_dir, db_path)
+             if os.path.exists(potential_path):
+                 db_path = potential_path
+                 
+        with open(db_path, "r") as f:
             data = json.load(f)
 
         users = data["users"]  # List of initial balances. Index = UserID.
