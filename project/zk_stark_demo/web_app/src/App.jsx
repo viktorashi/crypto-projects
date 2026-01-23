@@ -88,7 +88,7 @@ function App() {
 
 const Sidebar = ({ implementations, selected, onSelect }) => (
   <div className="sidebar">
-    <div className="sidebar-title">ZK-STARK Demo</div>
+    <div className="sidebar-title">ZK-STARK showing it offf</div>
     <div className="impl-list">
       {implementations.map((impl) => (
         <button
