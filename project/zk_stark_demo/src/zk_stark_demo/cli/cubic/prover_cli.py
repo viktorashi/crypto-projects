@@ -27,7 +27,7 @@ class CubicProverCLI(BaseProverCLI[CubicAIR]):
             "--length",
             type=int,
             default=128,
-            help="Length of computation (must be power of 2)",
+            help="Length of computation lol (must be power of 2)",
         )
         parser.add_argument(
             "--start",
@@ -45,7 +45,9 @@ class CubicProverCLI(BaseProverCLI[CubicAIR]):
         length: int = args.length
         start_val: int = args.start
 
-        print(f"Generating proof for Cubic sequence of length {length} (start={start_val})...")
+        print(
+            f"Generating proof for Cubic sequence of length {length} (start={start_val})..."
+        )
 
         # Setup AIR & Trace with dummy result
         dummy_air = CubicAIR(length, FieldElement(0), start_value=start_val)
