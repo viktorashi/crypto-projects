@@ -41,13 +41,26 @@ def run_process_and_stream(command: list[str], log_prefix: str):
     Run a subprocess and stream its output to the websocket.
     """
     try:
+        # Determine paths
+        # server.py is in src/zk_stark_demo/gui/
+        # We want project root: src/zk_stark_demo/gui/../../.. -> zk_stark_demo
+        gui_dir = os.path.dirname(os.path.abspath(__file__))
+        src_dir = os.path.abspath(os.path.join(gui_dir, "../../"))
+        project_root = os.path.abspath(os.path.join(src_dir, "../"))
+
+        # Prepare environment
+        env = os.environ.copy()
+        # Add src to PYTHONPATH so python -m zk_stark_demo... works
+        env["PYTHONPATH"] = src_dir + os.pathsep + env.get("PYTHONPATH", "")
+
         process = subprocess.Popen(
             command,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
             bufsize=1, # Line buffered
-            cwd=os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")) # Project root
+            cwd=project_root,
+            env=env
         )
         
         for line in process.stdout:
